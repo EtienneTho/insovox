@@ -43,10 +43,16 @@ nbScales = 8
 # per subject
 tabIndex = np.unique(tabSubjectNb)
 allCanonicalMaps = []
-training_accuracies_mean = []
-training_accuracies_std  = []
-testing_accuracies_mean  = []
-testing_accuracies_std   = []
+training_accuracies_mean_12 = []
+training_accuracies_std_12  = []
+testing_accuracies_mean_12  = []
+testing_accuracies_std_12   = []
+
+training_accuracies_mean_34 = []
+training_accuracies_std_34  = []
+testing_accuracies_mean_34  = []
+testing_accuracies_std_34   = []
+
 for index in tabIndex:
   print('Subject nb '+str(index))
   X = []
@@ -107,15 +113,15 @@ for index in tabIndex:
     accTest.append(balanced_accuracy_score(y_test,y_pred))
     y_pred = clf.predict(pca.transform(X_train))
 
-  print("____training accuracy: %0.2f" % np.nanmean(accTrain))
-  y_pred = clf.predict(pca.transform(X_test))  
-  print("____testing accuracy: %0.2f" % np.nanmean(accTest))
-  print()    
+  # print("____training accuracy: %0.2f" % np.nanmean(accTrain))
+  # y_pred = clf.predict(pca.transform(X_test))  
+  # print("____testing accuracy: %0.2f" % np.nanmean(accTest))
+  # print()    
 
-  training_accuracies_mean.append(np.nanmean(accTrain))
-  testing_accuracies_mean.append(np.nanmean(accTest))
-  training_accuracies_std.append(np.nanstd(accTrain))
-  testing_accuracies_std.append(np.nanstd(accTrain))
+  training_accuracies_mean_12.append(np.nanmean(accTrain))
+  testing_accuracies_mean_12.append(np.nanmean(accTest))
+  training_accuracies_std_12.append(np.nanstd(accTrain))
+  testing_accuracies_std_12.append(np.nanstd(accTest))
 
   ##### 3 vs. 4
   # classification: train / test split with 5-fold cv
@@ -148,11 +154,17 @@ for index in tabIndex:
     accTrain.append(balanced_accuracy_score(y_train,y_pred))
     y_pred = clf.predict(pca.transform(X_test))    
     accTest.append(balanced_accuracy_score(y_test,y_pred))
-  print("____training accuracy: %0.2f" % np.nanmean(accTrain))
-  y_pred = clf.predict(pca.transform(X_test))  
-  print("____testing accuracy: %0.2f" % np.nanmean(accTest))
-  print()    
 
+  training_accuracies_mean_34.append(np.nanmean(accTrain))
+  testing_accuracies_mean_34.append(np.nanmean(accTest))
+  training_accuracies_std_34.append(np.nanstd(accTrain))
+  testing_accuracies_std_34.append(np.nanstd(accTest))    
+  # print("____training accuracy: %0.2f" % np.nanmean(accTrain))
+  # y_pred = clf.predict(pca.transform(X_test))  
+  # print("____testing accuracy: %0.2f" % np.nanmean(accTest))
+  # print()
+print(testing_accuracies_mean_12)
+print(testing_accuracies_mean_34)
 
 
 
